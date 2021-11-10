@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { router } from "../router";
@@ -5,13 +6,15 @@ import { router } from "../router";
 const SHeader = styled.header`
   width: 100%;
   height: 60px;
-  position: fixed;
+  position: ${(props) => props.fixed};
   top: 0;
   left: 0;
   padding: 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: ${(props) => props.bgColor};
+  transition: 0.5s;
 `;
 
 const Logo = styled.h3`
@@ -34,18 +37,34 @@ const Menu = styled.li`
 `;
 
 export const Header = () => {
+  const [bg, setBg] = useState();
+  const [fix, setfix] = useState();
+
+  const handleScroll = () => {
+    const sct = window.pageYOffset;
+    if (sct >= 400) {
+      setBg("rgba(0,0,0,0.7)");
+      setfix("fixed");
+    } else {
+      setBg("transparent");
+      setfix("absoulte");
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
   return (
-    <SHeader>
+    <SHeader bgColor={bg} fixed={fix}>
       <Logo>
         <Link to={router.home}>PATI</Link>
       </Logo>
 
       <MenuWrap>
         <Menu>
-          <Link to="#">홈</Link>
+          <Link to={router.home}>홈</Link>
         </Menu>
         <Menu>
-          <Link to="#">영화검색</Link>
+          <Link to={router.search}>영화검색</Link>
         </Menu>
       </MenuWrap>
     </SHeader>
