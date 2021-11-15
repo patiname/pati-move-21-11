@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movieApi } from "../../api";
-
+import { Container } from "../Container";
 import { Loader } from "../Loader";
 import { MainBanner } from "./MainBanner";
+import { Movies } from "./Movies";
 
 const Wrap = styled.div``;
+
+const Section = styled.section`
+  width: 100%;
+`;
 
 export const Home = () => {
   const [nowPlay, setNowPlay] = useState();
   const [upComming, setUpComming] = useState();
   const [loading, setLoading] = useState(true);
-  const movieNum = 1;
+  const movieNum = 0;
 
   useEffect(() => {
     const movieData = async () => {
@@ -39,12 +44,25 @@ export const Home = () => {
   // console.log("개봉 예정 영화", upComming);
 
   return (
-    <>
+    <div>
       {loading ? (
         <Loader />
       ) : (
-        <Wrap>{nowPlay && <MainBanner data={nowPlay} num={movieNum} />}</Wrap>
+        <>
+          {nowPlay && (
+            <Wrap>
+              <MainBanner data={nowPlay} num={movieNum} />
+
+              <Section>
+                <Container>
+                  <Movies movieData={nowPlay} title="현재 상영 영화" />
+                  <Movies movieData={upComming} title="개봉 예정 영화" />
+                </Container>
+              </Section>
+            </Wrap>
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 };
