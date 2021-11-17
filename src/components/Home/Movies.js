@@ -1,14 +1,19 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import SwiperCore, { Navigation } from "swiper";
 import styled from "styled-components";
-import { mainWeight } from "../../style/GlobalStyled";
+import { mainWeight, moSize } from "../../style/GlobalStyled";
 import "../../style/swiper.css";
 import { Link } from "react-router-dom";
+import { router } from "../../router";
 
 const Title = styled.h3`
   font-size: 35px;
   font-weight: ${mainWeight.titleWeight};
   margin: 80px 0 30px 0;
+  @media screen and (max-width: 500px) {
+    font-size: 25px;
+    margin-top: 50px;
+  }
 `;
 
 const CoverImg = styled.div`
@@ -20,21 +25,34 @@ const CoverImg = styled.div`
 const MovieTitle = styled.h4`
   font-size: 18px;
   margin-top: 15px;
+  @media screen and (max-width: 500px) {
+    font-size: ${moSize.movieTitle};
+  }
 `;
 
+SwiperCore.use([Navigation]);
+
 export const Movies = ({ movieData, title }) => {
+  const params = {
+    breakpoints: {
+      1024: {
+        slidesPerView: 5.2,
+        spaceBetween: 20,
+      },
+      320: {
+        slidesPerView: 2.1,
+        spaceBetween: 10,
+      },
+    },
+  };
+
   return (
     <>
       <Title>{title}</Title>
-      <Swiper
-        module={[Navigation]}
-        slidesPerView={5}
-        spaceBetween={20}
-        navigation
-      >
+      <Swiper module={[Navigation]} {...params} navigation>
         {movieData.map((play) => (
           <SwiperSlide key={play.id}>
-            <Link to="#">
+            <Link to={`/detail/${play.id}`}>
               <CoverImg
                 style={{
                   backgroundImage: `url(https://image.tmdb.org/t/p/original${play.backdrop_path})`,

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import { movieApi } from "../../api";
 import { Container } from "../Container";
 import { Loader } from "../Loader";
+import { PageTitle } from "../PageTitle";
 import { MainBanner } from "./MainBanner";
 import { Movies } from "./Movies";
 
@@ -16,7 +18,7 @@ export const Home = () => {
   const [nowPlay, setNowPlay] = useState();
   const [upComming, setUpComming] = useState();
   const [loading, setLoading] = useState(true);
-  const movieNum = 0;
+  const movieNum = 1;
 
   useEffect(() => {
     const movieData = async () => {
@@ -45,6 +47,8 @@ export const Home = () => {
 
   return (
     <div>
+      <PageTitle title="홈" />
+
       {loading ? (
         <Loader />
       ) : (

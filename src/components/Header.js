@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { router } from "../router";
-import { mainWeight } from "../style/GlobalStyled";
+import { mainWeight, moSize } from "../style/GlobalStyled";
 
 const SHeader = styled.header`
   width: 100%;
@@ -16,6 +16,10 @@ const SHeader = styled.header`
   align-items: center;
   background-color: ${(props) => props.bgColor};
   transition: 0.5s;
+  z-index: 99;
+  @media screen and (max-width: 500px) {
+    padding: ${moSize.padding};
+  }
 `;
 
 const Logo = styled.h3`
@@ -35,10 +39,15 @@ const Menu = styled.li`
     margin-right: 50px;
   }
   font-weight: ${mainWeight.titleWeight};
+  @media screen and (max-width: 500px) {
+    &:nth-child(1) {
+      margin-right: 30px;
+    }
+  }
 `;
 
 export const Header = () => {
-  const [bg, setBg] = useState();
+  const [bg, setBg] = useState("transparent");
   const [fix, setfix] = useState();
 
   const handleScroll = () => {
