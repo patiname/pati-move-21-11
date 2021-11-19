@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import styled from "styled-components";
 import { movieApi } from "../../api";
 import { Container } from "../Container";

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { mainWeight, moSize } from "../../style/GlobalStyled";
 import "../../style/swiper.css";
 import { Link } from "react-router-dom";
-import { router } from "../../router";
 
 const Title = styled.h3`
   font-size: 35px;
