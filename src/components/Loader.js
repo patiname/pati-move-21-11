@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import Loader from "react-loader-spinner";
 
 const Wrap = styled.div`
   width: 100%;
@@ -23,10 +24,11 @@ const Loading = styled.div`
   animation: ${loadingAni} 1s infinite;
 `;
 
-export const Loader = () => {
+export const LoaderPage = () => {
   return (
     <Wrap>
-      <Loading></Loading>
+      {/* <Loading></Loading> */}
+      <Loader type="ThreeDots" color="gold" height={100} width={100} />
     </Wrap>
   );
 };

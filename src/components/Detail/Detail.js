@@ -7,7 +7,8 @@ import { useState } from "react";
 import { PageNotFound } from "../PageNotFound";
 import { Container } from "../Container";
 import styled from "styled-components";
-import { Loader } from "../Loader";
+import { LoaderPage } from "../Loader";
+import { mainColor, mainWeight } from "../../style/GlobalStyled";
 
 const Wrap = styled.div`
   display: flex;
@@ -48,11 +49,42 @@ const Desc = styled.div`
   font-weight: 300;
 `;
 
+const Button = styled.button`
+  all: unset;
+  padding: 20px 50px;
+  border: 1px solid #fff;
+  font-weight: ${mainWeight.titleWeight};
+  margin-top: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+  span {
+    transition: 0.2s;
+  }
+  &:hover {
+    background-color: ${mainColor.fontColor};
+    color: ${mainColor.bgColor};
+    span {
+      margin-left: 20px;
+    }
+  }
+`;
+
+const VideoWrap = styled.div`
+  height: 100vh;
+  padding: 200px 0;
+`;
+
+const Video = styled.iframe`
+  width: 100%;
+  height: 80vh;
+`;
+
 export const Detail = () => {
   // const location = useLocation();
   // console.log(location);
   const { id } = useParams();
   const [movieData, setMovieData] = useState();
+  const [videoData, setVideoData] = useState();
   const [loading, setLoading] = useState(true);
 
   const [errorPage, setErrorPage] = useState(false);
@@ -63,6 +95,14 @@ export const Detail = () => {
         // console.log(await movieApi.detail(370172));
         const { data } = await movieApi.detail(id);
         setMovieData(data);
+
+        // console.log(await movieApi.video(id));
+        const {
+          data: { results },
+        } = await movieApi.video(id);
+        setVideoData(results[0]);
+        // console.log(results[0].key);
+
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -70,9 +110,21 @@ export const Detail = () => {
       }
     };
     movieDetail();
-  }, []);
+  }, [id]);
 
-  console.log(movieData);
+  const onClickVideo = () => {
+    const videoWrapTop = document.querySelector(".video_wrap").offsetTop;
+    // console.log(videoWrapTop);
+
+    window.scrollTo({
+      top: videoWrapTop,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // console.log(movieData);
+  // console.log(videoData);
 
   return (
     <div>
@@ -81,7 +133,7 @@ export const Detail = () => {
       ) : (
         <>
           {loading ? (
-            <Loader />
+            <LoaderPage />
           ) : (
             <div>
               {movieData && (
@@ -102,10 +154,23 @@ export const Detail = () => {
                         </Info>
                         <Info>{movieData.runtime} 분</Info>
                         <Desc>{movieData.overview}</Desc>
+                        <Button onClick={onClickVideo}>
+                          예고편 보기 <span>&rarr;</span>
+                        </Button>
                       </ConWrap>
                     </Wrap>
                   </Container>
                 </>
+              )}
+
+              {videoData && (
+                <Container>
+                  <VideoWrap className="video_wrap">
+                    <Video
+                      src={`https://www.youtube.com/embed/${videoData.key}`}
+                    />
+                  </VideoWrap>
+                </Container>
               )}
             </div>
           )}

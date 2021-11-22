@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movieApi } from "../../api";
 import { Container } from "../Container";
-import { Loader } from "../Loader";
+import { LoaderPage } from "../Loader";
 import { PageTitle } from "../PageTitle";
 import { MainBanner } from "./MainBanner";
 import { Movies } from "./Movies";
@@ -16,6 +16,7 @@ const Section = styled.section`
 export const Home = () => {
   const [nowPlay, setNowPlay] = useState();
   const [upComming, setUpComming] = useState();
+  const [topRate, setTopRate] = useState();
   const [loading, setLoading] = useState(true);
   const movieNum = 1;
 
@@ -33,7 +34,12 @@ export const Home = () => {
         } = await movieApi.upComming();
         setUpComming(upComming);
 
-        setLoading(false);
+        const {
+          data: { results: topRated },
+        } = await movieApi.topRated();
+        setTopRate(topRated);
+
+        // setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -49,7 +55,7 @@ export const Home = () => {
       <PageTitle title="홈" />
 
       {loading ? (
-        <Loader />
+        <LoaderPage />
       ) : (
         <>
           {nowPlay && (
@@ -60,6 +66,7 @@ export const Home = () => {
                 <Container>
                   <Movies movieData={nowPlay} title="현재 상영 영화" />
                   <Movies movieData={upComming} title="개봉 예정 영화" />
+                  <Movies movieData={topRate} title="인기 영화" />
                 </Container>
               </Section>
             </Wrap>

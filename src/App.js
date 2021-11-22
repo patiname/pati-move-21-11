@@ -5,6 +5,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Home } from "./components/Home/Home";
 import { PageNotFound } from "./components/PageNotFound";
+import { ScrollTop } from "./components/ScrollTop";
 import { Search } from "./components/Search/Search";
 import { router } from "./router";
 import { GlobalStyeld } from "./style/GlobalStyled";
@@ -15,6 +16,7 @@ function App() {
       <Router>
         <GlobalStyeld />
         <Header />
+        <ScrollTop />
         <Switch>
           <Route path={router.home} exact>
             <Home />
