@@ -18,7 +18,7 @@ export const Home = () => {
   const [upComming, setUpComming] = useState();
   const [topRate, setTopRate] = useState();
   const [loading, setLoading] = useState(true);
-  const movieNum = 1;
+  const movieNum = 2;
 
   useEffect(() => {
     const movieData = async () => {
@@ -39,7 +39,7 @@ export const Home = () => {
         } = await movieApi.topRated();
         setTopRate(topRated);
 
-        // setLoading(false);
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }

@@ -57,7 +57,7 @@ export const Header = () => {
       setfix("fixed");
     } else {
       setBg("transparent");
-      setfix("absoulte");
+      setfix("absolute");
     }
   };
 

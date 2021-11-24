@@ -8,12 +8,16 @@ import { PageNotFound } from "../PageNotFound";
 import { Container } from "../Container";
 import styled from "styled-components";
 import { LoaderPage } from "../Loader";
-import { mainColor, mainWeight } from "../../style/GlobalStyled";
+import { mainColor, mainWeight, moSize } from "../../style/GlobalStyled";
 
 const Wrap = styled.div`
   display: flex;
   width: 100%;
   margin-top: 80px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    margin-top: 60px;
+  }
 `;
 
 const CoverImg = styled.div`
@@ -21,11 +25,19 @@ const CoverImg = styled.div`
   height: 80vh;
   background-size: cover;
   background-position: top;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 70vh;
+  }
 `;
 
 const ConWrap = styled.div`
   width: 50%;
   margin-left: 50px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 const Title = styled.div`
@@ -33,12 +45,18 @@ const Title = styled.div`
   font-weight: 600;
   margin-bottom: 30px;
   margin-top: 30px;
+  @media screen and (max-width: 500px) {
+    font-size: 36px;
+  }
 `;
 
 const Info = styled.li`
   margin-bottom: 15px;
   font-size: 18px;
   font-weight: 600;
+  @media screen and (max-width: 500px) {
+    font-size: ${moSize.descSize};
+  }
 `;
 
 const Desc = styled.div`
@@ -47,6 +65,9 @@ const Desc = styled.div`
   opacity: 0.7;
   margin-top: 50px;
   font-weight: 300;
+  @media screen and (max-width: 500px) {
+    font-size: ${moSize.descSize};
+  }
 `;
 
 const Button = styled.button`
@@ -67,11 +88,17 @@ const Button = styled.button`
       margin-left: 20px;
     }
   }
+  @media screen and (max-width: 500px) {
+    padding: 15px 40px;
+  }
 `;
 
 const VideoWrap = styled.div`
   height: 100vh;
   padding: 200px 0;
+  @media screen and (max-width: 500px) {
+    padding: 80px 0;
+  }
 `;
 
 const Video = styled.iframe`
