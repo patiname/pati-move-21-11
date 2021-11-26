@@ -12,6 +12,7 @@ const SMainBanner = styled.section`
   @media screen and (max-width: 500px) {
     padding: 220px 20px;
   }
+  position: relative;
 `;
 
 const Title = styled.h3`
@@ -22,9 +23,12 @@ const Title = styled.h3`
   line-height: 1.2em;
   margin-bottom: 25px;
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 9;
   @media screen and (max-width: 500px) {
     font-size: 45px;
     margin-bottom: 15px;
+    margin-top: 100px;
   }
 `;
 
@@ -35,9 +39,20 @@ const Desc = styled.p`
   opacity: 0.9;
   line-height: 1.4em;
   text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 9;
   @media screen and (max-width: 500px) {
     font-size: ${moSize.descSize};
   }
+`;
+
+const BlackBg = styled.div`
+  width: 100%;
+  height: 60vh;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, black, transparent);
 `;
 
 const Button = styled.button`
@@ -48,6 +63,8 @@ const Button = styled.button`
   margin-top: 30px;
   cursor: pointer;
   transition: 0.2s;
+  position: relative;
+  z-index: 9;
   span {
     transition: 0.2s;
   }
@@ -57,6 +74,9 @@ const Button = styled.button`
     span {
       margin-left: 20px;
     }
+  }
+  @media screen and (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -69,6 +89,9 @@ const MoreBanner = styled.section`
   justify-content: space-between;
   overflow: hidden;
   transition: 0.5s;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const ConWrap = styled.div`
@@ -135,6 +158,7 @@ export const MainBanner = ({ data, num }) => {
       >
         <Title>{data[`${num}`].title}</Title>
         <Desc>{data[`${num}`].overview.slice(0, 70) + "..."}</Desc>
+        <BlackBg />
         <Button onClick={onClickMore}>더 보기 +</Button>
       </SMainBanner>
 
