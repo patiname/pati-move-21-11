@@ -37,7 +37,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://patname.github.io/pati-move-21-11/",
+  "homepage": "https://movie-testing.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
